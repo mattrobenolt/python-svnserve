@@ -13,3 +13,5 @@ I think the svn protocol can be a good venue for generic file storage. I feel li
  * Shove this svn layer in front of a normal HTTP directory and pull updates by checking last-modified timestamps
  * emulate a file system in a database
  * **anything that has data that updates**
+
+![](http://i2.kym-cdn.com/photos/images/original/000/234/786/bf7.gif)
