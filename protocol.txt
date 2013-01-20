@@ -1,0 +1,143 @@
+< 2013/01/15 18:06:49.105362  length=116 from=0 to=115
+( success ( 2 2 ( ) ( edit-pipeline svndiff1 absent-entries commit-revprops depth log-revprops partial-replay ) ) ) 
+
+> 2013/01/15 18:06:49.106010  length=135 from=0 to=134
+( 2 ( edit-pipeline svndiff1 absent-entries depth mergeinfo log-revprops ) 25:svn://localhost:9630/cool 21:SVN/1.6.18 (r1303927) ( ) ) 
+
+< 2013/01/15 18:06:49.107499  length=70 from=116 to=185
+( success ( ( ANONYMOUS ) 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) ) 
+
+> 2013/01/15 18:06:49.108669  length=21 from=135 to=155
+( ANONYMOUS ( 0: ) ) 
+
+< 2013/01/15 18:06:49.109673  length=115 from=186 to=300
+( success ( ) ) ( success ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 25:svn://localhost:9630/cool ( mergeinfo ) ) ) 
+
+> 2013/01/15 18:06:49.110081  length=23 from=156 to=178
+( get-latest-rev ( ) ) 
+
+< 2013/01/15 18:06:49.110548  length=41 from=301 to=341
+( success ( ( ) 0: ) ) ( success ( 0 ) ) 
+
+> 2013/01/15 18:06:49.110821  length=46 from=179 to=224
+( reparent ( 25:svn://localhost:9630/cool ) ) 
+
+< 2013/01/15 18:06:49.111412  length=39 from=342 to=380
+( success ( ( ) 0: ) ) ( success ( ) ) 
+
+> 2013/01/15 18:06:49.111674  length=28 from=225 to=252
+( check-path ( 0: ( 0 ) ) ) 
+
+< 2013/01/15 18:06:49.114111  length=43 from=381 to=423
+( success ( ( ) 0: ) ) ( success ( dir ) ) 
+
+< 2013/01/15 18:06:49.130290  length=116 from=0 to=115
+( success ( 2 2 ( ) ( edit-pipeline svndiff1 absent-entries commit-revprops depth log-revprops partial-replay ) ) ) 
+
+> 2013/01/15 18:06:49.130992  length=135 from=0 to=134
+( 2 ( edit-pipeline svndiff1 absent-entries depth mergeinfo log-revprops ) 25:svn://localhost:9630/cool 21:SVN/1.6.18 (r1303927) ( ) ) 
+
+< 2013/01/15 18:06:49.132742  length=70 from=116 to=185
+( success ( ( ANONYMOUS ) 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) ) 
+
+> 2013/01/15 18:06:49.133823  length=21 from=135 to=155
+( ANONYMOUS ( 0: ) ) 
+
+< 2013/01/15 18:06:49.134645  length=115 from=186 to=300
+( success ( ) ) ( success ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 25:svn://localhost:9630/cool ( mergeinfo ) ) ) 
+
+> 2013/01/15 18:06:49.135320  length=23 from=156 to=178
+( get-latest-rev ( ) ) 
+
+< 2013/01/15 18:06:49.136069  length=41 from=301 to=341
+( success ( ( ) 0: ) ) ( success ( 0 ) ) 
+
+> 2013/01/15 18:06:49.137417  length=43 from=179 to=221
+( update ( ( 0 ) 0: true unknown false ) ) 
+
+< 2013/01/15 18:06:49.138832  length=23 from=342 to=364
+( success ( ( ) 0: ) ) 
+
+> 2013/01/15 18:06:49.139186  length=63 from=222 to=284
+( set-path ( 0: 0 false ( ) infinity ) ) ( finish-report ( ) ) 
+
+< 2013/01/15 18:06:49.140794  length=420 from=365 to=784
+( success ( ( ) 0: ) ) ( target-rev ( 0 ) ) ( open-root ( ( 0 ) 2:d0 ) ) ( change-dir-prop ( 2:d0 23:svn:entry:committed-rev ( 1:0 ) ) ) ( change-dir-prop ( 2:d0 24:svn:entry:committed-date ( 27:2013-01-16T01:58:37.548920Z ) ) ) ( change-dir-prop ( 2:d0 21:svn:entry:last-author ( ) ) ) ( change-dir-prop ( 2:d0 14:svn:entry:uuid ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) ) ) ( close-dir ( 2:d0 ) ) ( close-edit ( ) ) 
+
+> 2013/01/15 18:06:49.146024  length=16 from=285 to=300
+( success ( ) ) 
+
+< 2013/01/15 18:06:49.146749  length=16 from=785 to=800
+( success ( ) ) 
+
+< 2013/01/15 18:06:56.403206  length=116 from=0 to=115
+( success ( 2 2 ( ) ( edit-pipeline svndiff1 absent-entries commit-revprops depth log-revprops partial-replay ) ) ) 
+
+> 2013/01/15 18:06:56.403684  length=135 from=0 to=134
+( 2 ( edit-pipeline svndiff1 absent-entries depth mergeinfo log-revprops ) 25:svn://localhost:9630/cool 21:SVN/1.6.18 (r1303927) ( ) ) 
+
+< 2013/01/15 18:06:56.405230  length=70 from=116 to=185
+( success ( ( ANONYMOUS ) 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) ) 
+
+> 2013/01/15 18:06:56.405565  length=21 from=135 to=155
+( ANONYMOUS ( 0: ) ) 
+
+< 2013/01/15 18:06:56.406026  length=115 from=186 to=300
+( success ( ) ) ( success ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 25:svn://localhost:9630/cool ( mergeinfo ) ) ) 
+
+> 2013/01/15 18:06:56.406476  length=23 from=156 to=178
+( get-latest-rev ( ) ) 
+
+< 2013/01/15 18:06:56.406730  length=41 from=301 to=341
+( success ( ( ) 0: ) ) ( success ( 0 ) ) 
+
+> 2013/01/15 18:06:56.407029  length=46 from=179 to=224
+( reparent ( 25:svn://localhost:9630/cool ) ) 
+
+< 2013/01/15 18:06:56.407419  length=39 from=342 to=380
+( success ( ( ) 0: ) ) ( success ( ) ) 
+
+> 2013/01/15 18:06:56.407772  length=28 from=225 to=252
+( check-path ( 0: ( 0 ) ) ) 
+
+< 2013/01/15 18:06:56.408093  length=43 from=381 to=423
+( success ( ( ) 0: ) ) ( success ( dir ) ) 
+
+< 2013/01/15 18:06:56.419566  length=116 from=0 to=115
+( success ( 2 2 ( ) ( edit-pipeline svndiff1 absent-entries commit-revprops depth log-revprops partial-replay ) ) ) 
+
+> 2013/01/15 18:06:56.420099  length=135 from=0 to=134
+( 2 ( edit-pipeline svndiff1 absent-entries depth mergeinfo log-revprops ) 25:svn://localhost:9630/cool 21:SVN/1.6.18 (r1303927) ( ) ) 
+
+< 2013/01/15 18:06:56.421557  length=70 from=116 to=185
+( success ( ( ANONYMOUS ) 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) ) 
+
+> 2013/01/15 18:06:56.421871  length=21 from=135 to=155
+( ANONYMOUS ( 0: ) ) 
+
+< 2013/01/15 18:06:56.422328  length=115 from=186 to=300
+( success ( ) ) ( success ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 25:svn://localhost:9630/cool ( mergeinfo ) ) ) 
+
+> 2013/01/15 18:06:56.422662  length=23 from=156 to=178
+( get-latest-rev ( ) ) 
+
+< 2013/01/15 18:06:56.422911  length=41 from=301 to=341
+( success ( ( ) 0: ) ) ( success ( 0 ) ) 
+
+> 2013/01/15 18:06:56.423204  length=44 from=179 to=222
+( update ( ( 0 ) 0: true infinity false ) ) 
+
+< 2013/01/15 18:06:56.424500  length=23 from=342 to=364
+( success ( ( ) 0: ) ) 
+
+> 2013/01/15 18:06:56.424848  length=63 from=223 to=285
+( set-path ( 0: 0 false ( ) infinity ) ) ( finish-report ( ) ) 
+
+< 2013/01/15 18:06:56.425639  length=420 from=365 to=784
+( success ( ( ) 0: ) ) ( target-rev ( 0 ) ) ( open-root ( ( 0 ) 2:d0 ) ) ( change-dir-prop ( 2:d0 23:svn:entry:committed-rev ( 1:0 ) ) ) ( change-dir-prop ( 2:d0 24:svn:entry:committed-date ( 27:2013-01-16T01:58:37.548920Z ) ) ) ( change-dir-prop ( 2:d0 21:svn:entry:last-author ( ) ) ) ( change-dir-prop ( 2:d0 14:svn:entry:uuid ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) ) ) ( close-dir ( 2:d0 ) ) ( close-edit ( ) ) 
+
+> 2013/01/15 18:06:56.427984  length=16 from=286 to=301
+( success ( ) ) 
+
+< 2013/01/15 18:06:56.428343  length=16 from=785 to=800
+( success ( ) ) 
