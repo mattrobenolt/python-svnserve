@@ -1,0 +1,27 @@
+< 2013/02/24 14:50:03.956080  length=116 from=0 to=115
+( success ( 2 2 ( ) ( edit-pipeline svndiff1 absent-entries commit-revprops depth log-revprops partial-replay ) ) )
+
+> 2013/02/24 14:50:03.956515  length=139 from=0 to=138
+( 2 ( edit-pipeline svndiff1 absent-entries depth mergeinfo log-revprops ) 29:svn://localhost:9630/testrepo 21:SVN/1.6.18 (r1303927) ( ) )
+
+< 2013/02/24 14:50:03.957874  length=70 from=116 to=185
+( success ( ( ANONYMOUS ) 36:78baf1cd-0c9f-4fcd-9db8-e40e1d69be21 ) ) > 2013/02/24 14:50:03.958122  length=21 from=139 to=159
+( ANONYMOUS ( 0: ) )
+
+< 2013/02/24 14:50:03.958578  length=119 from=186 to=304
+( success ( ) ) ( success ( 36:78baf1cd-0c9f-4fcd-9db8-e40e1d69be21 29:svn://localhost:9630/testrepo ( mergeinfo ) ) )
+
+> 2013/02/24 14:50:03.958965  length=65 from=160 to=224
+( commit ( 8:commit1
+ ( ) false ( ( 7:svn:log 8:commit1
+ ) ) ) )
+
+ < 2013/02/24 14:50:03.959386  length=39 from=305 to=343
+( success ( ( ) 0: ) ) ( success ( ) )
+
+> 2013/02/24 14:50:03.960449  length=382 from=225 to=606
+( open-root ( ( ) 2:d0 ) ) ( add-file ( 9:hello.txt 2:d0 2:c1 ( ) ) ) ( close-dir ( 2:d0 ) ) ( apply-textdelta ( 2:c1 ( ) ) ) ( textdelta-chunk ( 2:c1 4:SVN. ) ) ( textdelta-chunk ( 2:c1 5:....\a ) ) ( textdelta-chunk ( 2:c1 2:.. ) ) ( textdelta-chunk ( 2:c1 7:.hello
+ ) ) ( textdelta-end ( 2:c1 ) ) ( close-file ( 2:c1 ( 32:b1946ac92492d2347c6235b4d2611184 ) ) ) ( close-edit ( ) )
+
+ < 2013/02/24 14:50:03.973821  length=88 from=344 to=431
+( success ( ) ) ( success ( ( ) 0: ) ) ( 1 ( 27:2013-02-24T22:50:03.971405Z ) ( ) ( ) )
