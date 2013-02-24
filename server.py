@@ -102,8 +102,6 @@ def decode(x):
         raise MarshallError("Unexpected character '%c'" % x[0])
 
 
-import uuid
-
 repos = {
     'svn://localhost/testrepo': 'ce6d8bb6-6b7a-4cb9-bf0c-f346bb840b97'
 }
@@ -137,37 +135,75 @@ class Request(object):
     def start_auth(self, data):
         # ( success ( ( ANONYMOUS ) 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) )
         self.request_uri = data[1][2]
-        self.send_and_receive([literal('success'), [[literal('ANONYMOUS')], repos[self.request_uri]]], self.auth2)
+        self.send_and_receive([literal('success'), [[literal('ANONYMOUS')], self.get_repo_id()]], self.auth2)
 
     def auth2(self, data):
-        # ( success ( ) ) ( success ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 25:svn://localhost:9630/cool ( mergeinfo ) ) )
+        # ( success ( ) )
+        # ( success ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 25:svn://localhost:9630/cool ( mergeinfo ) ) )
         self.send([literal('success'), []])
-        self.send_and_receive([literal('success'), [repos[self.request_uri], self.request_uri, [literal('mergeinfo')]]], self.handle_command)
+        self.send_and_receive([literal('success'), [self.get_repo_id(), self.request_uri, [literal('mergeinfo')]]], self.handle_command)
 
     def handle_command(self, data):
         cmd, args = data[1][0], data[1][1]
         getattr(self, 'cmd_%s' % cmd.replace('-', '_'))(*args)
 
     def cmd_get_latest_rev(self):
-        # ( success ( ( ) 0: ) ) ( success ( 0 ) ) 
+        # ( success ( ( ) 0: ) )
+        # ( success ( 0 ) )
         self.send([literal('success'), [[], '']])
         self.send_and_receive([literal('success'), [0]], self.handle_command)
 
     def cmd_reparent(self, url):
-        # ( success ( ( ) 0: ) ) ( success ( ) )
+        # ( success ( ( ) 0: ) )
+        # ( success ( ) )
         self.send([literal('success'), [[], '']])
         self.send_and_receive([literal('success'), []], self.handle_command)
 
     def cmd_check_path(self, *args):
-        # ( success ( ( ) 0: ) ) ( success ( dir ) ) 
+        # ( success ( ( ) 0: ) )
+        # ( success ( dir ) )
         self.send([literal('success'), [[], '']])
         self.send([literal('success'), [literal('dir')]])
         self.end()
+
+    def cmd_update(self, *args):
+        # ( success ( ( ) 0: ) )
+        self.send_and_receive([literal('success'), [[], '']], self.handle_command)
+
+    def cmd_set_path(self, *args):
+        # ( success ( ( ) 0: ) )
+        # ( target-rev ( 0 ) )
+        # ( open-root ( ( 0 ) 2:d0 ) )
+        # ( change-dir-prop ( 2:d0 23:svn:entry:committed-rev ( 1:0 ) ) )
+        # ( change-dir-prop ( 2:d0 24:svn:entry:committed-date ( 27:2013-01-16T01:58:37.548920Z ) ) )
+        # ( change-dir-prop ( 2:d0 21:svn:entry:last-author ( ) ) )
+        # ( change-dir-prop ( 2:d0 14:svn:entry:uuid ( 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) ) )
+        # ( close-dir ( 2:d0 ) )
+        # ( close-edit ( ) )
+        dir_id = 'd0'
+        self.send([literal('success'), [[], '']])
+        self.send([literal('target-rev'), [0]])
+        self.send([literal('open-root'), [[0], dir_id]])
+        self.send([literal('change-dir-prop'), [dir_id, 'svn:entry:committed-rev', ['0']]])
+        self.send([literal('change-dir-prop'), [dir_id, 'svn:entry:committed-date', ['2013-01-16T01:58:37.548920Z']]])
+        self.send([literal('change-dir-prop'), [dir_id, 'svn:entry:last-author', []]])
+        self.send([literal('change-dir-prop'), [dir_id, 'svn:sentry:uuid', [self.get_repo_id()]]])
+        self.send([literal('close-dir'), [dir_id]])
+        self.send_and_receive([literal('close-edit'), []], self.handle_command)
+
+    def cmd_success(self, *args):
+        # ( success ( ) )
+        self.send([literal('success'), []])
+        self.end()
+
+    def get_repo_id(self):
+        return repos[self.request_uri]
 
     def noop(self, data):
         pass
 
     def end(self, *args, **kwargs):
+        # print "=" * 10
         self.client.close()
 
 if __name__ == '__main__':
@@ -179,7 +215,7 @@ if __name__ == '__main__':
             print "listening @ svn://localhost:3690 ..."
             break
         except Exception:
-            print ".",
+            sys.stdout.write('.')
             sys.stdout.flush()
             time.sleep(0.5)
     s.listen(5)
