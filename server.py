@@ -7,12 +7,14 @@ class literal(str):
     """A unique type to distinguish between str and a literal"""
     pass
 
+
 class MarshallError(Exception):
     """A Marshall error."""
 
 
 class NeedMoreData(MarshallError):
     """More data needed."""
+
 
 def encode(data):
     """Marshall a Python data item.
@@ -47,10 +49,10 @@ def decode(x):
     whitespace = ['\n', ' ']
     if len(x) == 0:
         raise NeedMoreData("Not enough data")
-    if x[0] == "(": # list follows
+    if x[0] == "(":  # list follows
         if len(x) <= 1:
             raise NeedMoreData("Missing whitespace")
-        if x[1] != " ": 
+        if x[1] != " ":
             raise MarshallError("missing whitespace after list start")
         x = x[2:]
         ret = []
@@ -63,7 +65,7 @@ def decode(x):
 
         if len(x) <= 1:
             raise NeedMoreData("Missing whitespace")
-        
+
         if not x[1] in whitespace:
             raise MarshallError("Expected space, got %c" % x[1])
 
@@ -81,7 +83,7 @@ def decode(x):
         elif x[0] == ":":
             if len(x) < num:
                 raise NeedMoreData("Expected string of length %r" % num)
-            return (x[num+2:], x[1:num+1])
+            return (x[num + 2:], x[1:num + 1])
         else:
             raise MarshallError("Expected whitespace or ':', got '%c" % x[0])
     elif x[0].isalpha():
@@ -145,7 +147,11 @@ class Request(object):
 
     def handle_command(self, data):
         cmd, args = data[1][0], data[1][1]
-        getattr(self, 'cmd_%s' % cmd.replace('-', '_'))(*args)
+        try:
+            func = getattr(self, 'cmd_%s' % cmd.replace('-', '_'))
+        except AttributeError:
+            raise NotImplementedError(cmd)
+        func(*args)
 
     def cmd_get_latest_rev(self):
         # ( success ( ( ) 0: ) )
