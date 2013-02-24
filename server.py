@@ -187,7 +187,7 @@ class Request(object):
         self.send([literal('change-dir-prop'), [dir_id, 'svn:entry:committed-rev', ['0']]])
         self.send([literal('change-dir-prop'), [dir_id, 'svn:entry:committed-date', ['2013-01-16T01:58:37.548920Z']]])
         self.send([literal('change-dir-prop'), [dir_id, 'svn:entry:last-author', []]])
-        self.send([literal('change-dir-prop'), [dir_id, 'svn:sentry:uuid', [self.get_repo_id()]]])
+        self.send([literal('change-dir-prop'), [dir_id, 'svn:entry:uuid', [self.get_repo_id()]]])
         self.send([literal('close-dir'), [dir_id]])
         self.send_and_receive([literal('close-edit'), []], self.handle_command)
 
