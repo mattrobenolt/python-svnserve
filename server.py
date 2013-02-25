@@ -1,12 +1,16 @@
+#!/usr/bin/env python
+
 import socket
 import time
 import sys
 
 from protocol import literal, encode, decode
-from objects import InMemoryRepository, get_by_uri
+from objects import InMemoryRepository, SvnException, CommandNotImplemented
+
+Repository = InMemoryRepository
 
 # Create and register the testrepo
-InMemoryRepository('/testrepo', 'ce6d8bb6-6b7a-4cb9-bf0c-f346bb840b97')
+Repository.create('/testrepo', 'ce6d8bb6-6b7a-4cb9-bf0c-f346bb840b97')
 
 
 class Request(object):
@@ -19,14 +23,21 @@ class Request(object):
 
     def send(self, data):
         data = encode(data)
-        print ">>>", data
+        self.send_raw(data)
+
+    def send_raw(self, data):
+        print("\x1b[35m>>> %s\x1b[0m" % data)
         self.client.send(data)
 
     def read(self, callback):
         data = self.client.recv(1024)
-        print "<<<", data
+        print("\x1b[32m<<< %s\x1b[0m" % data)
         data = decode(data)
-        callback(data)
+        try:
+            callback(data)
+        except SvnException as e:
+            self.send_raw(str(e))
+            self.end()
 
     def handle(self):
         self.greeting()
@@ -37,7 +48,7 @@ class Request(object):
     def start_auth(self, data):
         # ( success ( ( ANONYMOUS ) 36:40435d67-9594-4fb4-bb67-394e327d0cc5 ) )
         self.request_uri = data[1][2]
-        self.repository = get_by_uri(self.request_uri)
+        self.repository = Repository.get_by_uri(self.request_uri)
         self.send_and_receive([literal('success'), [[literal('ANONYMOUS')], self.repository.id]], self.auth2)
 
     def auth2(self, data):
@@ -51,7 +62,8 @@ class Request(object):
         try:
             func = getattr(self, 'cmd_%s' % cmd.replace('-', '_'))
         except AttributeError:
-            raise NotImplementedError(cmd)
+            # This should be implemented on a Repository
+            raise CommandNotImplemented(cmd)
         func(*args)
 
     def cmd_get_latest_rev(self):
@@ -115,8 +127,7 @@ if __name__ == '__main__':
     while 1:
         try:
             s.bind(('', 3690))
-            print
-            print "listening @ svn://localhost:3690 ..."
+            print("listening @ svn://localhost:3690 ...")
             break
         except Exception:
             sys.stdout.write('.')
@@ -124,6 +135,11 @@ if __name__ == '__main__':
             time.sleep(0.5)
     s.listen(5)
     while 1:
-        req = Request(s.accept()[0])
+        try:
+            req = Request(s.accept()[0])
+        except KeyboardInterrupt:
+            print("\nBye.")
+            s.close()
+            break
         req.handle()
         req.end()
