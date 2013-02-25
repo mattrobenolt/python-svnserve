@@ -4,8 +4,9 @@ import socket
 import time
 import sys
 
-from protocol import literal, encode, decode
-from objects import InMemoryRepository, SvnException, CommandNotImplemented
+from svnserve.protocol import literal, encode, decode
+from svnserve.objects import InMemoryRepository
+from svnserve.exceptions import SvnException, CommandNotImplemented
 
 Repository = InMemoryRepository
 
@@ -27,9 +28,8 @@ class Request(object):
 
     def send(self, data):
         if isinstance(data, SvnException):
-            data = str(data)
-        else:
-            data = encode(data)
+            data = data.as_buffer()
+        data = encode(data)
         self.send_raw(data)
 
     def send_raw(self, data):
