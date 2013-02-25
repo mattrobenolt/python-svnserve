@@ -21,8 +21,15 @@ class Request(object):
         self.send(data)
         self.read(callback)
 
+    def send_and_end(self, data):
+        self.send(data)
+        self.end()
+
     def send(self, data):
-        data = encode(data)
+        if isinstance(data, SvnException):
+            data = str(data)
+        else:
+            data = encode(data)
         self.send_raw(data)
 
     def send_raw(self, data):
@@ -36,8 +43,9 @@ class Request(object):
         try:
             callback(data)
         except SvnException as e:
-            self.send_raw(str(e))
-            self.end()
+            self.send_and_end(e)
+        except Exception:
+            self.send_and_end(SvnException('Something unexepcted happened.'))
 
     def handle(self):
         self.greeting()
@@ -82,8 +90,7 @@ class Request(object):
         # ( success ( ( ) 0: ) )
         # ( success ( dir ) )
         self.send([literal('success'), [[], '']])
-        self.send([literal('success'), [literal('dir')]])
-        self.end()
+        self.send_and_end([literal('success'), [literal('dir')]])
 
     def cmd_update(self, *args):
         # ( success ( ( ) 0: ) )
@@ -112,8 +119,7 @@ class Request(object):
 
     def cmd_success(self, *args):
         # ( success ( ) )
-        self.send([literal('success'), []])
-        self.end()
+        self.send_and_end([literal('success'), []])
 
     def noop(self, data):
         pass

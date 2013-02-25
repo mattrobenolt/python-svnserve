@@ -11,8 +11,13 @@ class SvnException(Exception):
             pass
         super(SvnException, self).__init__(message)
 
+    def as_buffer(self):
+        return [literal('failure'), [[0, self.message, '', 0]]]
+
     def __str__(self):
-        return encode([literal('failure'), [[0, self.message, '', 0]]])
+        return encode(self.as_buffer())
+
+    __repr__ = __str__
 
 
 class RepositoryDoesNotExist(SvnException):
