@@ -4,8 +4,9 @@ from .protocol import literal, encode
 class SvnException(Exception):
     def __init__(self, message):
         try:
-            message = self.format % message
+            message = self.format.format(msg=message)
         except AttributeError:
+            # No special format has been specified. Ignore.
             pass
         super(SvnException, self).__init__(message)
 
@@ -19,8 +20,8 @@ class SvnException(Exception):
 
 
 class RepositoryDoesNotExist(SvnException):
-    format = 'No repository found in %r'
+    format = 'No repository found in {msg!r}'
 
 
 class CommandNotImplemented(SvnException):
-    format = 'Command not implemented: %r'
+    format = 'Command not implemented: {msg!r}'

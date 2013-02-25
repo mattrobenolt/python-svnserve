@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import socket
 import time
 import sys
 
@@ -128,24 +127,28 @@ class Request(object):
         # print "=" * 10
         self.client.close()
 
+    @classmethod
+    def accept(cls, client, address):
+        req = cls(client)
+        req.handle()
+        req.end()
+
+
 if __name__ == '__main__':
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    from gevent.server import StreamServer
+
     while 1:
         try:
-            s.bind(('', 3690))
+            server = StreamServer(('', 3690), Request.accept)
             print("listening @ svn://localhost:3690 ...")
             break
         except Exception:
             sys.stdout.write('.')
             sys.stdout.flush()
             time.sleep(0.5)
-    s.listen(5)
-    while 1:
-        try:
-            req = Request(s.accept()[0])
-        except KeyboardInterrupt:
-            print("\nBye.")
-            s.close()
-            break
-        req.handle()
-        req.end()
+
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        print("\nBye.")
+        server.stop()
